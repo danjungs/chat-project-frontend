@@ -8,6 +8,7 @@ function Home({ username, setUsername, room, setRoom, socket}) {
       return;
     }
     socket.emit('join_room', {username, room})
+    window.sessionStorage.setItem('USER_STATE', JSON.stringify({un: username, r: room}))
     navigate('/chat', { replace: true});
   }
 

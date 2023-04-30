@@ -5,11 +5,20 @@ function Messages({ socket }) {
   const [messagesRecieved, setMessagesRecieved] = useState([]);
 
   useEffect(() => {
+    const data = window.sessionStorage.getItem('MSG_STATE');
+    if ( data !== null ) {
+      const appState = JSON.parse(data);
+      setMessagesRecieved(appState.m)
+    };
+  }, []);
+
+  useEffect(() => {
     socket.on('receive_message', data => {
        setMessagesRecieved(state => [
         ...state,
         data
       ])
+      window.sessionStorage.setItem('MSG_STATE', JSON.stringify({m: messagesRecieved}))
     })
     return () => socket.off('receive_message');
   }, [socket]);
@@ -22,13 +31,18 @@ function Messages({ socket }) {
   return (
     <div className="messages-container">
       {messagesRecieved.map((msg, i) => (
-        <div className='messages-container__message-container' key={i}>
-           <div className='messages-container__message-header'>
-            <span className='messages-container__message-user'>{msg.username}</span>
-            <span className='messages-container__message-date'>{formatDate(msg.createdTime)}</span>
-           </div>
-           <p className='messages-container__message-text'>{msg.message}</p>
-        </div>
+        msg.bot ?
+          <div className='messages-container__message-container' key={i}>
+            <p className='messages-container__bot-text'>- {msg.message} -</p>
+          </div>
+          :
+          <div className='messages-container__message-container' key={i}>
+            <div className='messages-container__message-header'>
+              { msg.username && <span className='messages-container__message-user'>{msg.username}</span>}
+              { msg.createdTime && <span className='messages-container__message-date'>{formatDate(msg.createdTime)}</span>}
+            </div>
+            <p className='messages-container__message-text'>{msg.message}</p>
+          </div>
       ))}  
     </div>
   );

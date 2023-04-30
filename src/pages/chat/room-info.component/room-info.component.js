@@ -6,15 +6,26 @@ function RoomInfo({ socket, username, room }) {
   const [chatRoomUsers, setChatRoomUsers] = useState([]);
 
   useEffect(() => {
+    const data = window.sessionStorage.getItem('CHAT_STATE');
+    if ( data !== null ) {
+      const appState = JSON.parse(data);
+      setChatRoomUsers(appState.cu)
+    };
+  }, []);
+
+  useEffect(() => {
     socket.on('chatroom_users', data => {
-      console.log(data);
       setChatRoomUsers(data)
+      window.sessionStorage.setItem('CHAT_STATE', JSON.stringify({cu: data}))
     })
     return () => socket.off('chatroom_users');
   }, [socket]);
+
   const navigate = useNavigate();
   const leaveRoom = ()=> {
     socket.emit('leave_room', {username, room})
+    window.sessionStorage.removeItem("USER_STATE");
+    window.sessionStorage.removeItem("CHAT_STATE");
     navigate('/', { replace: true});
   }
 
@@ -36,7 +47,4 @@ function RoomInfo({ socket, username, room }) {
 }
 
 export default RoomInfo;
-
-
-
 
