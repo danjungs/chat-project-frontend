@@ -4,18 +4,53 @@
     letter-spacing: 0.5px;
     height: 100%;
     background: #F5F5F5;
-    .chat-container__messages-content {
-        max-height: 92%;
-        min-height: 92%;
-        height: 92%;
-        overflow-y: auto;
-        flex-direction: column-reverse;
+    display: flex;
+    flex-direction: column;
+    .chat-container__content {
+        height: 95%;
         display: flex;
     }
-    .chat-container__send-message-content {
-        border-top: 1px solid #ccc;
-        position: relative;
-        height: 8%;
+    .chat-container__message-header {
+        height: 5%;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+        background-color: #ff4684;
+        color: #FFF;
+        h3 {
+            margin: 0;
+            text-transform: uppercase;
+        }
+    }
+    .chat-container__content__chat-content {
+        height: 100%;
+        width: 100%;
+        .chat-container__content__messages-content {
+            max-height: 92%;
+            min-height: 92%;
+            height: 92%;
+            overflow-y: auto;
+            flex-direction: column-reverse;
+            display: flex;
+        }
+        .chat-container__content__send-message-content {
+            border-top: 1px solid #ccc;
+            height: 8%;
+            box-sizing: border-box;
+        }
+    }
+    .chat-container__content__room-info {
+        width: 30%;
+        border-right: 1px solid #ccc;
     }
 }
+
+@media (max-width: 600px) {
+    .chat-container__content__room-info {
+        display: none;
+    }
+}
+
+
 

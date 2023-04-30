@@ -1,0 +1,9 @@
+.room-info-container {
+    text-align: left;
+    .room-info-container__users {
+        padding: 1rem;
+        span {
+            font-size: .8rem;
+        }
+    }
+}
