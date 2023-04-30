@@ -11,14 +11,14 @@ function Chat({ socket, username, room }) {
       </div>
       <div className='chat-container__content'>
         <div className="chat-container__content__room-info">
-            <RoomInfo socket={socket}/>
+            <RoomInfo socket={socket} username={username} room={room} />
           </div>
         <div className="chat-container__content__chat-content">
           <div className="chat-container__content__messages-content">
             <Messages socket={socket} />
           </div>
           <div className="chat-container__content__send-message-content">
-            <SendMessage socket={socket} username={username} room={room}/>
+            <SendMessage socket={socket} username={username} room={room} />
           </div>
         </div>
       </div>

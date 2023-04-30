@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import './room-info.component.scss';
 import { useEffect, useState } from 'react';
 
-function RoomInfo({ socket }) {
+function RoomInfo({ socket, username, room }) {
   const [chatRoomUsers, setChatRoomUsers] = useState([]);
 
   useEffect(() => {
@@ -11,6 +12,11 @@ function RoomInfo({ socket }) {
     })
     return () => socket.off('chatroom_users');
   }, [socket]);
+  const navigate = useNavigate();
+  const leaveRoom = ()=> {
+    socket.emit('leave_room', {username, room})
+    navigate('/', { replace: true});
+  }
 
   return (
     <div className="room-info-container">
@@ -21,6 +27,9 @@ function RoomInfo({ socket }) {
             <p className='room-info-container__message-text'>{user.username}</p>
           </div>
         ))}  
+      </div>
+      <div className='room-info-container__btn-container'>
+        <button className='btn' onClick={leaveRoom}>Sair da Sala</button>
       </div>
     </div>
   );
