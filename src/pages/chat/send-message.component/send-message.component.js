@@ -16,7 +16,6 @@ function SendMessage({ socket, username, room }) {
     }
     const createdTime = Date.now()
     const messageObj = {username, message, room, createdTime};
-    console.log(messageObj)
     socket.emit('send_message', messageObj)
     setMessage('');
   }

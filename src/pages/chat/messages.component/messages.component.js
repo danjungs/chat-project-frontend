@@ -6,12 +6,10 @@ function Messages({ socket }) {
 
   useEffect(() => {
     socket.on('receive_message', data => {
-      console.log(data);
        setMessagesRecieved(state => [
         ...state,
         data
       ])
-      console.log(messagesRecieved)
     })
     return () => socket.off('receive_message');
   }, [socket]);
