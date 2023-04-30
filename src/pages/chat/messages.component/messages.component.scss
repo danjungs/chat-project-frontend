@@ -1,0 +1,22 @@
+.messages-container {
+    background: #F3F3F3;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    text-align: left;
+    padding: 0 1rem;
+    .messages-container__message-container {
+        margin: 5px;
+        .messages-container__message-header {
+            .messages-container__message-user {
+                font-weight: bold;
+                font-size: 1rem;
+                padding-right: 1rem;
+            }
+            .messages-container__message-date {
+                font-size: .7rem;
+                text-align: end;
+            }
+        }
+    }
+}
